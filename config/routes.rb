@@ -17,4 +17,6 @@ Rails.application.routes.draw do
     end
   end
   resources :comments, only: [:new, :create, :destroy]
+
+  get "top_commenters", to: :top_commenters, controller: "users"
 end

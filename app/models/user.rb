@@ -25,4 +25,12 @@ class User < ApplicationRecord
   has_many :comment, dependent: :destroy
 
   validates :phone_number, format: { with: /\A[+]?\d+(?>[- .]\d+)*\z/, allow_nil: true }
+
+  scope :top_commenters, -> {
+    joins(:comment)
+      .group(:id)
+      .where(comments: { created_at: 1.week.ago..Time.zone.now })
+      .order("COUNT(*) DESC")
+      .limit(10)
+  }
 end
