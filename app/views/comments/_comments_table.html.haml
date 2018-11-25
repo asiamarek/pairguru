@@ -1,0 +1,11 @@
+%table.table.table-striped
+  %tbody
+    - comments.each_with_index do |comment|
+      %tr
+        %td
+          .card
+            .card-body
+              - if comment.user === current_user
+                %p= link_to 'Delete', comment, :method => :delete, class: 'btn btn-sm btn-default pull-right'
+              %h5.card-title= comment.user.name
+              %p.card-text{style: "font-size: 14px;"}= comment.body
